@@ -7,12 +7,12 @@ namespace HelloDungeon
 
     class Game
     {
-        characterName = "";
-        currentArea = -1;
-        gameOver = true;
-        health = 20;
-        playerIsAlive = false;
-
+        string characterName = "";
+        float currentArea = 1;
+        bool gameOver = false;
+        float  health = 20;
+        bool playerIsAlive = true;
+        float input;
         /// <summary>
         /// The starting room where the player gives their name, and has their first encounter.
         /// </summary>
@@ -26,22 +26,27 @@ namespace HelloDungeon
             Console.Clear();
 
             //Display text for the first encounter, and store the players decision
-            int input = GetInput("You've been approached by a traveler!! " +
-                "\n They offer you a potion. Do you accept?","No", "Yes" );
-           
+            float input = GetInput("You've been approached by a traveler!! ",
+                "\n They offer you a potion. Do you accept?", "No", "Yes") ;
+
             //If the player drinks the potion...
-            if (input = 1)
+            if (input == 1)
             {
                 //...kill the player
                 Console.WriteLine("It was posion!! Ya dead shuuuunnnnn");
-                playerIsAlive == false;
+                playerIsAlive = false;
             }
             //Otherwise if they do not...
-            else if (input = 2)
+            else if (input == 2)
             {
                 //...display text to let the player know that they survived the first room
                 Console.WriteLine("You decide to follow your gut and decline. You move on to the next area.");
             }
+        }
+
+        private float GetInput(string v1, string v2, string v3, string v4)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -73,8 +78,8 @@ namespace HelloDungeon
                 "\n The monkey offers you immortality if you can solve a riddle in " + numberOfAttempts + " attempts.");
                 Console.WriteLine("What has to be broken before you can use it?");
 
-                //Store the amount of attempts the player has remaining
-                int attemptsRemaining = numberOfAttempts + i;
+            //Store the amount of attempts the player has remaining
+            int attemptsRemaining = numberOfAttempts;
 
                 //Displays the remaining number of attempts
                 Console.WriteLine("Attempts Remaining: " + attemptsRemaining);
@@ -83,14 +88,19 @@ namespace HelloDungeon
                 Console.Write("> ");
                 input = Console.ReadLine();
 
-                //If the player answered correctly...
+
+            //If the player answered correctly...
+            while (input != "egg")
+            {
                 if (input == "egg")
                 {
                     //...print text for feedback and break the loop
                     Console.WriteLine("Congrats! You've gained immortality!");
                     Console.ReadKey();
                     break;
+
                 }
+            }
 
                 //If the player doesn't answer correctly deal damage to them
                 Console.WriteLine("Incorrect! The monkey laughs at you! It hurts..." +
@@ -140,7 +150,7 @@ namespace HelloDungeon
         void Room3()
         {
             Console.Clear();
-            Console.WriteLine("You've reached the end of your journey!")
+            Console.WriteLine("You've reached the end of your journey!");
         }
 
 
@@ -151,7 +161,7 @@ namespace HelloDungeon
         /// <param name="option1">The first option the player can choose</param>
         /// <param name="option2">The second option the player can choose</param>
         /// <returns></returns>
-        void GetInput(string description, string option1, string option2)
+        int GetInput(string description, string option1, string option2)
         {
             string input = "";
             int inputReceived = 0;
@@ -197,22 +207,22 @@ namespace HelloDungeon
         public void Run()
         {
             //Loop while game isn't over
-            while (gameOver)
+            while (!gameOver)
             {
                 //Print the current room to the screen
-                if (currentArea >= 1)
+                if (currentArea == 1)
                 {
                     Room1();
                 }
-                if (currentArea >= 2)
+                else if (currentArea == 2)
                 {
                     Room2();
-                }
-                if (currentArea >= 3)
+                } 
+                else if (currentArea == 3)
                 {
                     Room3();
                 }
-            }
+
                 //If the player lost or beat the game...
                 if (playerIsAlive == false || currentArea == 3)
                 {
@@ -225,7 +235,7 @@ namespace HelloDungeon
                     //...increment the current area
                     currentArea++;
                 }
-            
+            }
         }
     }
 }
