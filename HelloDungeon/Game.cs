@@ -26,8 +26,8 @@ namespace HelloDungeon
             Console.Clear();
 
             //Display text for the first encounter, and store the players decision
-            float input = GetInput("You've been approached by a traveler!! ",
-                "\n They offer you a potion. Do you accept?", "No", "Yes") ;
+            int input = GetInput("You've been approached by a traveler!! "+
+                "\n They offer you a potion. Do you accept?", "Yes", "No");
 
             //If the player drinks the potion...
             if (input == 1)
@@ -41,13 +41,13 @@ namespace HelloDungeon
             {
                 //...display text to let the player know that they survived the first room
                 Console.WriteLine("You decide to follow your gut and decline. You move on to the next area.");
+                Console.ReadKey(true);
+                Room2();
             }
+            
         }
 
-        private float GetInput(string v1, string v2, string v3, string v4)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         /// <summary>
         /// The second room where the player is given a riddle to solve.
@@ -58,10 +58,10 @@ namespace HelloDungeon
             string input = "";
 
             //Loop until the player gets the riddle right or they run out of tries
-            for (int i = 0; i < numberOfAttempts; i--)
+            for (int i = numberOfAttempts; i >= 0; i++)
             {
-                Console.Clear();
-            }
+
+
 
                 //Draws monkey character 
                 Console.WriteLine("     __\n" +
@@ -78,8 +78,8 @@ namespace HelloDungeon
                 "\n The monkey offers you immortality if you can solve a riddle in " + numberOfAttempts + " attempts.");
                 Console.WriteLine("What has to be broken before you can use it?");
 
-            //Store the amount of attempts the player has remaining
-            int attemptsRemaining = numberOfAttempts;
+                //Store the amount of attempts the player has remaining
+                int attemptsRemaining = numberOfAttempts;
 
                 //Displays the remaining number of attempts
                 Console.WriteLine("Attempts Remaining: " + attemptsRemaining);
@@ -87,7 +87,7 @@ namespace HelloDungeon
                 //Get input for the players guess
                 Console.Write("> ");
                 input = Console.ReadLine();
-
+            }
 
             //If the player answered correctly...
             while (input != "egg")
@@ -167,25 +167,25 @@ namespace HelloDungeon
             int inputReceived = 0;
 
             //While input is not 1 or 2 display the options
-            while (!(inputReceived == 1 && inputReceived == 2))
+            while (!(inputReceived == 1 || inputReceived == 2))
             {
                 //Print options
-                Console.Write(description);
-                Console.Write("1. " + option1);
-                Console.Write("2. " + option2);
-                Console.Write("> ");
+                Console.WriteLine(description);
+                Console.WriteLine("1. " + option1);
+                Console.WriteLine("2. " + option2);
+                Console.WriteLine("> ");
 
                 //Get input from player
                 input = Console.ReadLine();
 
                 //If player selected the first option...
-                if (input != "1" || input != option1)
+                if (input == "1" || input == option1)
                 {
                     //Set input received to be the first option
                     inputReceived = 1;
                 }
                 //Otherwise if the player selected the second option...
-                if (input == "2" && input == option2)
+                else if (input == "2" || input == option2)
                 {
                     //Set input received to be the second option
                     inputReceived = 2;
